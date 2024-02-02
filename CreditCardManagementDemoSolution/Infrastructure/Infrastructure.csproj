@@ -6,4 +6,36 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="EFCore.CheckConstraints" Version="8.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Customers\Login\" />
+    <Folder Include="Customers\Update\" />
+    <Folder Include="Customers\RefreshToken\" />
+    <Folder Include="Customers\Get\" />
+    <Folder Include="Customers\Add\" />
+    <Folder Include="Cards\" />
+    <Folder Include="Payments\" />
+    <Folder Include="_Common\Persistence\Databases\ApplicationDbContext\Migrations\" />
+    <Folder Include="_Security\Users\ChangePassword\" />
+    <Folder Include="_Security\Users\ResetPassword\" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Cards\" />
+    <Folder Include="Payments\" />
+  </ItemGroup>
+
 </Project>
