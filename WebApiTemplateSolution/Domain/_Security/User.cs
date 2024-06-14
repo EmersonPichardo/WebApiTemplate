@@ -1,6 +1,6 @@
 ﻿using Domain._Common.Entities.Implementations;
 
-namespace Domain._Security.Users;
+namespace Domain._Security;
 
 public class User : BaseAuditableCompoundEntity
 {
@@ -8,6 +8,8 @@ public class User : BaseAuditableCompoundEntity
     public required string Password { get; set; }
     public required string Salt { get; set; }
     public required UserStatus Status { get; set; }
+
+    public IList<UserRole> UserRoles { get; set; } = [];
 }
 
 public enum UserStatus

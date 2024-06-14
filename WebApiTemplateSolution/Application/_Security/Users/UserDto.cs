@@ -1,5 +1,5 @@
 ﻿using Application._Common.Mapping;
-using Domain._Security.Users;
+using Domain._Security;
 
 namespace Application._Security.Users;
 

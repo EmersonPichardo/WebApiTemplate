@@ -1,4 +1,4 @@
-﻿using Domain._Common;
+﻿using Domain._Common.Modularity;
 
 namespace Application._Common.Caching;
 
@@ -11,7 +11,7 @@ namespace Application._Common.Caching;
 /// <param name="module">Specifies the module use as caching tag.</param>
 [AttributeUsage(AttributeTargets.Class, Inherited = true)]
 public class CacheAttribute(
-    AppModule module
+    Component module
 )
     : Attribute
 {

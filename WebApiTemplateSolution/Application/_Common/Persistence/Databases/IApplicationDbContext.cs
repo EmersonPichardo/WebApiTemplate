@@ -1,4 +1,4 @@
-﻿using Domain._Security.Users;
+﻿using Domain._Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 

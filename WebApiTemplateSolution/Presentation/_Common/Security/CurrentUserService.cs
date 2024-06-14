@@ -48,10 +48,26 @@ internal record CurrentUserService(
             )
         ?? throw new NotFoundException(nameof(DbContext.Users), currentUserId);
 
+        var accesses = foundUser
+            .UserRoles
+            .Select(entity => entity.Role)
+            .SelectMany(entity => entity?.Permissions ?? [])
+            .GroupBy(
+                entity => entity.Component,
+                entity => entity.RequiredAccess
+            )
+            .ToDictionary(
+                group => group.Key,
+                group => group.Aggregate(
+                    (requiredAccess, currentAccess) => requiredAccess | currentAccess
+                )
+            );
+
         var currentUser = new CurrentUser()
         {
             Id = currentUserId,
-            Status = foundUser.Status
+            Status = foundUser.Status,
+            Accesses = accesses
         };
 
         await CacheStore.SetAsync(

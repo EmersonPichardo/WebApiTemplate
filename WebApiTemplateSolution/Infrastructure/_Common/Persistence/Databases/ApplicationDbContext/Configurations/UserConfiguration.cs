@@ -1,5 +1,5 @@
 ﻿using Application._Common.Persistence.Databases;
-using Domain._Security.Users;
+using Domain._Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
