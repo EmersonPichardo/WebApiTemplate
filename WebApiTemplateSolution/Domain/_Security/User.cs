@@ -5,6 +5,7 @@ namespace Domain._Security;
 public class User : BaseAuditableCompoundEntity
 {
     public required string FullName { get; set; }
+    public required string Email { get; set; }
     public required string Password { get; set; }
     public required string Salt { get; set; }
     public required UserStatus Status { get; set; }

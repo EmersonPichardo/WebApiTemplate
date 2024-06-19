@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Presentation._Common.Endpoints;
-using Presentation._Common.Middleware;
+using Presentation._Common.Middleware.ExceptionHandler;
 using Presentation._Common.Security;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -23,7 +23,7 @@ internal static partial class ConfigureServices
     {
         return services
             .AddHttpContextAccessor()
-            .AddTransient<GlobalExceptionHandlerMiddleware>()
+            .AddExceptionHandler<GlobalExceptionHandler>()
             .AddCorsServices()
             .AddSecurityServices(configuration)
             .AddOpenApiServices()
@@ -153,7 +153,7 @@ internal static partial class ConfigureServices
             .UseApplicationCors()
             .UseSwaggerUserInterface()
             .UseSecurity()
-            .UseMiddleware<GlobalExceptionHandlerMiddleware>();
+            .UseMiddleware<GlobalExceptionHandler>();
 
         //IEndpointRouteBuilder
         app

@@ -2,8 +2,9 @@
 
 public interface IEventPublisher
 {
-    void AddEvent(IEvent @event);
-    IReadOnlyCollection<IEvent> GetEvents();
-    bool HasEvents();
-    bool NotHasEvents();
+    void EnqueueEvent(IEvent @event);
+    void EnqueueEvents(IEnumerable<IEvent> events);
+    bool TryDequeueEvent(out IEvent? @event);
+    bool HasPendingEvents();
+    bool HasNoPendingEvents() => !HasPendingEvents();
 }

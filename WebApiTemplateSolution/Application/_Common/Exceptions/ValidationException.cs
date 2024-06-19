@@ -1,12 +1,11 @@
-﻿using Application._Common.Helpers;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using System.Dynamic;
 
 namespace Application._Common.Exceptions;
 
 public class ValidationException : Exception
 {
-    public IDictionary<string, dynamic> Errors { get; }
+    public IDictionary<string, object?> Errors { get; }
 
     private const string propertyNameIdentifier = "PropertyName";
     private const string arrayIdentifier = "CollectionIndex";
@@ -27,7 +26,7 @@ public class ValidationException : Exception
                 ValidationFailureSimple.FromValidationFailure
             );
 
-        var errors = new Dictionary<string, dynamic>();
+        var errors = new Dictionary<string, object?>();
 
         foreach (var keyValuePair in notArrayErrors)
             errors.Add(keyValuePair.Key, keyValuePair.First());
@@ -38,7 +37,7 @@ public class ValidationException : Exception
         Errors = errors;
     }
 
-    private static IEnumerable<dynamic> GetValidationFailureObjectArray(IGrouping<string, ValidationFailureSimple> failureGroup)
+    private static IEnumerable<object?> GetValidationFailureObjectArray(IGrouping<string, ValidationFailureSimple> failureGroup)
     {
         static dynamic dynamicMapping(IEnumerable<ValidationFailureSimple> failures)
         {

@@ -29,6 +29,8 @@
   <ItemGroup>
     <Folder Include="_Common\Persistence\Databases\ApplicationDbContext\Migrations\" />
     <Folder Include="_Security\Users\ChangePassword\" />
+    <Folder Include="_Security\Users\LogIn\" />
+    <Folder Include="_Security\Users\LogOut\" />
     <Folder Include="_Security\Users\ResetPassword\" />
   </ItemGroup>
 

@@ -39,8 +39,9 @@ public static partial class ConfigureServices
     private static IServiceCollection AddNotificationsServices(this IServiceCollection services)
     {
         services
-            .AddScoped<IEventPublisher, EventPublisher>()
-            .AddTransient<IEmailSender, EmailSender>();
+            .AddSingleton<IEventPublisher, EventPublisher>()
+            .AddTransient<IEmailSender, EmailSender>()
+            .AddHostedService<EventProcessor>();
 
         return services;
     }
@@ -118,12 +119,11 @@ public static partial class ConfigureServices
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
             configuration.AddOpenRequestPreProcessor(typeof(LoggingBehavior<>));
-            configuration.AddOpenBehavior(typeof(TransactionBehavior<,>));
             configuration.AddOpenBehavior(typeof(PerformanceBehavior<,>));
+            configuration.AddOpenBehavior(typeof(TransactionBehavior<,>));
             configuration.AddOpenBehavior(typeof(AuthorizationBehavior<,>));
             configuration.AddOpenBehavior(typeof(CachingBehavior<,>));
             configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            configuration.AddOpenRequestPostProcessor(typeof(EventBehavior<,>));
             configuration.AddOpenRequestPostProcessor(typeof(LoggingBehavior<,>));
 
             configuration.NotificationPublisher = new TaskWhenAllPublisher();
