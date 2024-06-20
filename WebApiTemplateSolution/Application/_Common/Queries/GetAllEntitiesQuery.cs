@@ -2,5 +2,4 @@
 
 public record GetAllEntitiesQuery<TResponse>
     : IQuery<IList<TResponse>>
-    where TResponse : class
-{ }
+where TResponse : class;

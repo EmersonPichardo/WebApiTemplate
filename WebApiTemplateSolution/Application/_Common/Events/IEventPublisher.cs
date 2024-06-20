@@ -4,7 +4,7 @@ public interface IEventPublisher
 {
     void EnqueueEvent(IEvent @event);
     void EnqueueEvents(IEnumerable<IEvent> events);
-    bool TryDequeueEvent(out IEvent? @event);
+    IEnumerable<IEvent> GetPendingEvents();
     bool HasPendingEvents();
     bool HasNoPendingEvents() => !HasPendingEvents();
 }

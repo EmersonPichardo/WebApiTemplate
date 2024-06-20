@@ -1,6 +1,6 @@
-﻿namespace Application.Users.Register;
+﻿namespace Application.Users.Add;
 
-public record UserRegisteredEvent
+public record UserAddedEvent
     : IEvent
 {
     public required Guid UserId { get; init; }

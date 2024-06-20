@@ -1,32 +1,37 @@
 ﻿using Application._Common.Events;
+using Application._Common.Settings;
 using MediatR;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure._Common.Events;
 
 internal class EventProcessor(
     IEventPublisher eventPublisher,
-    IPublisher publisher
+    IPublisher publisher,
+    IOptions<BackgroundTaskSettings> backgroundTaskSettingsOptions
 )
     : BackgroundService
 {
-    private readonly PeriodicTimer _timer = new(TimeSpan.FromSeconds(5));
+    private readonly PeriodicTimer timer = new(backgroundTaskSettingsOptions.Value.TimeInterval);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (
             !stoppingToken.IsCancellationRequested &&
-            await _timer.WaitForNextTickAsync(stoppingToken)
+            await timer.WaitForNextTickAsync(stoppingToken)
         )
         {
-            if (
-                eventPublisher.HasNoPendingEvents() ||
-                !eventPublisher.TryDequeueEvent(out var @event) ||
-                @event is null
-            )
+            if (eventPublisher.HasNoPendingEvents())
                 continue;
 
-            await publisher.Publish(@event, stoppingToken);
+            var tasks = eventPublisher
+                .GetPendingEvents()
+                .Select(
+                    @event => publisher.Publish(@event, stoppingToken)
+                );
+
+            await Task.WhenAll(tasks);
         }
     }
 }

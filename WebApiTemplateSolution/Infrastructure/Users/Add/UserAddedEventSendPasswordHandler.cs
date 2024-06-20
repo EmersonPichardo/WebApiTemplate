@@ -1,15 +1,15 @@
 ﻿using Application._Common.Notifications.Emails;
-using Application.Users.Register;
+using Application.Users.Add;
 using MediatR;
 
-namespace Infrastructure.Users.Register;
+namespace Infrastructure.Users.Add;
 
-internal class UserRegisteredEventSendPasswordHandler(
+internal class UserAddedEventSendPasswordHandler(
     IEmailSender emailSender
 )
-    : INotificationHandler<UserRegisteredEvent>
+    : INotificationHandler<UserAddedEvent>
 {
-    public async Task Handle(UserRegisteredEvent @event, CancellationToken cancellationToken)
+    public async Task Handle(UserAddedEvent @event, CancellationToken cancellationToken)
     {
         await emailSender.SendAsync(
             @event.Email,

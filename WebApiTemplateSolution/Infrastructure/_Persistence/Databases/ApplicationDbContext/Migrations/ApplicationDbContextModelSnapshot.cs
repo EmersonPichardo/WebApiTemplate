@@ -135,7 +135,7 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("RolesPermissions", null, t =>
                         {
-                            t.HasCheckConstraint("CK_RolesPermissions_Component_Enum", "[Component] IN (0)");
+                            t.HasCheckConstraint("CK_RolesPermissions_Component_Enum", "[Component] IN (0, 1)");
                         });
                 });
 

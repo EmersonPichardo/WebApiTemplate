@@ -1,3 +1,3 @@
 ﻿namespace Application._Common.Commands;
 
-public interface IBaseCommand { }
+public interface IBaseCommand;

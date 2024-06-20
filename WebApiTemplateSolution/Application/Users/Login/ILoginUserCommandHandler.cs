@@ -3,5 +3,4 @@
 namespace Application.Users.Login;
 
 public interface ILoginUserCommandHandler
-    : IRequestHandler<LoginUserCommand, LoginUserCommandResponse>
-{ }
+    : IRequestHandler<LoginUserCommand, LoginUserCommandResponse>;

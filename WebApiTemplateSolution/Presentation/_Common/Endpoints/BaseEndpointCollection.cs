@@ -15,7 +15,6 @@ public abstract class BaseEndpointCollection(
     protected string CollectionName { get; } = collectionName
         ?? throw new ArgumentNullException(collectionName);
 
-    private const string constructorMethodName = "constructor";
     private readonly Collection<Endpoint> endpoints = [];
 
     public void RegisterEndpoints(IEndpointRouteBuilder app)
@@ -49,7 +48,7 @@ public abstract class BaseEndpointCollection(
         string route,
         Delegate handler,
         int successStatusCode,
-        Type? successType
+        Type? successType = null
     )
     {
         endpoints.Add(
@@ -114,13 +113,13 @@ public abstract class BaseEndpointCollection(
             return Results.Ok(response);
         }
     }
-    protected void DefineAddEndpoint<TCommand>()
+    protected void DefineInsertEndpoint<TCommand>()
         where TCommand : IBaseCommand
     {
         DefineEndpoint(HttpVerbose.Post, "/",
-            Add, 201, null);
+            Insert, 201);
 
-        static async Task<IResult> Add(ISender mediator, TCommand command)
+        static async Task<IResult> Insert(ISender mediator, TCommand command)
         {
             await mediator.Send(command);
             return Results.StatusCode(201);
@@ -130,7 +129,7 @@ public abstract class BaseEndpointCollection(
         where TCommand : IBaseCommand
     {
         DefineEndpoint(HttpVerbose.Put, "/",
-            Update, 200, null);
+            Update, 200);
 
         static async Task<IResult> Update(ISender mediator, TCommand command)
         {
@@ -139,19 +138,15 @@ public abstract class BaseEndpointCollection(
         }
     }
     protected void DefineDeleteEndpoint<TCommand>()
-        where TCommand : IBaseCommand
+        where TCommand : IDeleteCommand, new()
     {
         DefineEndpoint(HttpVerbose.Delete, "/{id:guid}",
-            Add, 200, null);
+            Delete, 200);
 
-        static async Task<IResult> Add(ISender mediator, Guid id)
+        static async Task<IResult> Delete(ISender mediator, Guid id)
         {
-            var type = typeof(TCommand);
-
-            var query = (TCommand?)Activator.CreateInstance(type, id)
-                ?? throw new MissingMethodException(type.Name, constructorMethodName);
-
-            await mediator.Send(query);
+            var command = new TCommand() { Id = id };
+            await mediator.Send(command);
 
             return Results.Ok();
         }

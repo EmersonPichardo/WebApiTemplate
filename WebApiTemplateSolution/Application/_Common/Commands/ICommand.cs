@@ -3,9 +3,7 @@
 namespace Application._Common.Commands;
 
 public interface ICommand
-    : IBaseCommand, IRequest
-{ }
+    : IBaseCommand, IRequest;
 
 public interface ICommand<out TResponse>
-    : IBaseCommand, IRequest<TResponse>
-{ }
+    : IBaseCommand, IRequest<TResponse>;

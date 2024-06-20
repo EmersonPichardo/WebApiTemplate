@@ -3,16 +3,18 @@ using Application._Common.Persistence.Databases;
 using Application._Common.Security.Authentication;
 using Application._Common.Settings;
 using Application.Users.Login;
-using Domain.Security;
+using Application.Users.Logout;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Users.LogIn;
+namespace Infrastructure.Users.Login;
 
 internal class LoginUserCommandHandler(
     IApplicationDbContext dbContext,
     IPasswordHasher passwordHasher,
-    IEventPublisher eventPublisher,
-    IJwtService jwtService
+    IJwtService jwtService,
+    ISender mediator,
+    IEventPublisher eventPublisher
 )
     : ILoginUserCommandHandler
 {
@@ -58,14 +60,10 @@ internal class LoginUserCommandHandler(
                 entity => entity.Aggregate((accessLevel, rolePermission) => accessLevel | rolePermission)
             );
 
-        eventPublisher.EnqueueEvent(
-            new UserLoggedInEvent() { User = foundUser }
-        );
-
-        return new()
+        var response = new LoginUserCommandResponse()
         {
             DisplayName = foundUser.FullName,
-            RequiredPasswordChange = foundUser.Status is UserStatus.RequiredPasswordChange,
+            Status = foundUser.Status,
             RefreshToken = new()
             {
                 Expires = DateTime.UtcNow.Add(jwtService.GetSettings().RefreshTokenLifetime),
@@ -78,5 +76,16 @@ internal class LoginUserCommandHandler(
             },
             Access = userAccess
         };
+
+        await mediator.Send(
+            new LogoutUserCommand() { UserId = foundUser.Id },
+            cancellationToken
+        );
+
+        eventPublisher.EnqueueEvent(
+            new UserLoggedInEvent() { Entity = foundUser, Session = response }
+        );
+
+        return response;
     }
 }

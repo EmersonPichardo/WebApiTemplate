@@ -41,7 +41,11 @@ internal record CurrentUserService(
 
         var foundUser = await DbContext
             .Users
-            .AsNoTracking()
+            .AsNoTrackingWithIdentityResolution()
+            .Include(entity => entity.UserRoles)
+                .ThenInclude(entity => entity.Role)
+                    .ThenInclude(entity => entity != null ? entity.Permissions : null)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(
                 entity => entity.Id.Equals(currentUserId),
                 cancellationToken
@@ -71,7 +75,7 @@ internal record CurrentUserService(
         };
 
         await CacheStore.SetAsync(
-            $"{nameof(ICurrentUserIdentity)}",
+            nameof(ICurrentUserIdentity),
             $"{nameof(ICurrentUserIdentity)}{{{currentUserId}}}",
             currentUser,
             cancellationToken

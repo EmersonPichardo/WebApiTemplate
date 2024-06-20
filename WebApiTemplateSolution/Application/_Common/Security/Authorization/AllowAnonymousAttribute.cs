@@ -8,5 +8,4 @@
 /// </remarks>
 [AttributeUsage(AttributeTargets.Class, Inherited = true)]
 public class AllowAnonymousAttribute
-    : Attribute
-{ }
+    : Attribute;

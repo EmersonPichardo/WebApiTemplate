@@ -3,5 +3,4 @@
 namespace Application.Users.ResetPassword;
 
 public interface IResetUserPasswordCommandHandler
-    : IRequestHandler<ResetUserPasswordCommand>
-{ }
+    : IRequestHandler<ResetUserPasswordCommand>;

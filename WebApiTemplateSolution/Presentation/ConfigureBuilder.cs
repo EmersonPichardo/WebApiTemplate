@@ -142,6 +142,11 @@ internal static partial class ConfigureBuilder
             .ValidateDataAnnotations()
             .ValidateOnStart();
         services
+            .AddOptions<BackgroundTaskSettings>()
+            .Bind(configuration.GetRequiredSection(nameof(BackgroundTaskSettings)))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        services
             .AddOptions<SmtpSettings>()
             .Bind(configuration.GetRequiredSection(nameof(SmtpSettings)))
             .ValidateDataAnnotations()

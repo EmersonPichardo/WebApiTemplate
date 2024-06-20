@@ -5,7 +5,7 @@ namespace Application._Common.Exceptions;
 
 public class ValidationException : Exception
 {
-    public IDictionary<string, object?> Errors { get; }
+    public IDictionary<string, dynamic?> Errors { get; }
 
     private const string propertyNameIdentifier = "PropertyName";
     private const string arrayIdentifier = "CollectionIndex";
@@ -26,7 +26,7 @@ public class ValidationException : Exception
                 ValidationFailureSimple.FromValidationFailure
             );
 
-        var errors = new Dictionary<string, object?>();
+        var errors = new Dictionary<string, dynamic?>();
 
         foreach (var keyValuePair in notArrayErrors)
             errors.Add(keyValuePair.Key, keyValuePair.First());
@@ -37,12 +37,12 @@ public class ValidationException : Exception
         Errors = errors;
     }
 
-    private static IEnumerable<object?> GetValidationFailureObjectArray(IGrouping<string, ValidationFailureSimple> failureGroup)
+    private static IEnumerable<dynamic?> GetValidationFailureObjectArray(IGrouping<string, ValidationFailureSimple> failureGroup)
     {
         static dynamic dynamicMapping(IEnumerable<ValidationFailureSimple> failures)
         {
             dynamic result = new ExpandoObject();
-            IDictionary<string, string> properties = result;
+            IDictionary<string, object> properties = result;
 
             foreach (var failure in failures)
             {

@@ -3,7 +3,7 @@
 namespace Application.Users.Login;
 
 public record UserLoggedInEvent
-    : IEvent
+    : BaseEntityEvent<User>
 {
-    public required User User { get; init; }
+    public required LoginUserCommandResponse Session { get; init; }
 }

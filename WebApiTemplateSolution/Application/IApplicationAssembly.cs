@@ -1,3 +1,3 @@
 ﻿namespace Application;
 
-public interface IApplicationAssembly { }
+public interface IApplicationAssembly;
