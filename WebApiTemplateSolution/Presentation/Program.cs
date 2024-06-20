@@ -2,13 +2,10 @@ using Infrastructure;
 using Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services
-    .AddInfrastructureServices(builder.Configuration)
-    .AddApiServices(builder.Configuration);
+builder.AddInfrastructure();
+builder.AddPresentation();
 
 var app = builder.Build();
-
-app.UseApiServices();
-
+app.UseInfrastructure();
+app.UsePresentation();
 app.Run();

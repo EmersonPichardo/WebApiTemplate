@@ -1,4 +1,4 @@
-﻿using Domain._Security;
+﻿using Domain.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -8,6 +8,9 @@ public interface IApplicationDbContext
 {
     //dbo
     public DbSet<User> Users => Set<User>();
+    public DbSet<Role> Roles => Set<Role>();
+    public DbSet<RolePermission> RolesPermissions => Set<RolePermission>();
+    public DbSet<UserRole> UsersRoles => Set<UserRole>();
 
     //base
     public DatabaseFacade Database { get; }

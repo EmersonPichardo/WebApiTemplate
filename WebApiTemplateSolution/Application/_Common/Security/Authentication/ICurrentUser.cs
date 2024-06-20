@@ -1,5 +1,5 @@
 ﻿using Domain._Common.Modularity;
-using Domain._Security;
+using Domain.Security;
 
 namespace Application._Common.Security.Authentication;
 

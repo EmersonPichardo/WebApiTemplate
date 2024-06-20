@@ -24,7 +24,7 @@ internal class EventProcessor(
                 !eventPublisher.TryDequeueEvent(out var @event) ||
                 @event is null
             )
-                return;
+                continue;
 
             await publisher.Publish(@event, stoppingToken);
         }

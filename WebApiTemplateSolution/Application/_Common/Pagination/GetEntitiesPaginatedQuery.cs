@@ -1,7 +1,4 @@
-﻿using Application._Common.Helpers;
-using Application._Common.Queries;
-
-namespace Application._Common.Pagination;
+﻿namespace Application._Common.Pagination;
 
 public record GetEntitiesPaginatedQuery<TResponse>
     : IGetEntitiesPaginatedQuery

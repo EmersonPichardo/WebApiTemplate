@@ -20,5 +20,5 @@ internal class EventPublisher : IEventPublisher
         => _events.TryDequeue(out @event);
 
     public bool HasPendingEvents()
-        => _events.IsEmpty;
+        => !_events.IsEmpty;
 }

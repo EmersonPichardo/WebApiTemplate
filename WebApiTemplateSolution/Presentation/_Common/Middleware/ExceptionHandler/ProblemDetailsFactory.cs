@@ -11,7 +11,7 @@ internal static class ProblemDetailsFactory
             Status = StatusCodes.Status401Unauthorized,
             Title = "Access denied.",
             Detail = exception.Message,
-            Instance = httpContext.Request.Path,
+            Instance = ConstructInstance(httpContext),
             Type = "https://datatracker.ietf.org/doc/html/rfc7235#section-3.1"
         };
 
@@ -21,7 +21,7 @@ internal static class ProblemDetailsFactory
             Status = StatusCodes.Status403Forbidden,
             Title = "Access denied.",
             Detail = exception.Message,
-            Instance = httpContext.Request.Path,
+            Instance = ConstructInstance(httpContext),
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.3"
         };
 
@@ -31,7 +31,7 @@ internal static class ProblemDetailsFactory
             Status = StatusCodes.Status404NotFound,
             Title = "Resource not found.",
             Detail = exception.Message,
-            Instance = httpContext.Request.Path,
+            Instance = ConstructInstance(httpContext),
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4"
         };
 
@@ -41,9 +41,11 @@ internal static class ProblemDetailsFactory
             Status = StatusCodes.Status422UnprocessableEntity,
             Title = "Validation error.",
             Detail = validationException.Message,
-            Instance = httpContext.Request.Path,
+            Instance = ConstructInstance(httpContext),
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
-            Extensions = validationException.Errors
+            Extensions = {
+                ["errors"] = validationException.Errors
+            }
         };
 
     public static ProblemDetails InternalServerProblem
@@ -52,7 +54,10 @@ internal static class ProblemDetailsFactory
             Status = StatusCodes.Status500InternalServerError,
             Title = "An internal unexpected error happened.",
             Detail = exception.Message,
-            Instance = httpContext.Request.Path,
+            Instance = ConstructInstance(httpContext),
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"
         };
+
+    private static string ConstructInstance(HttpContext httpContext)
+        => $"[{httpContext.Request.Method}] {httpContext.Request.Path}";
 }

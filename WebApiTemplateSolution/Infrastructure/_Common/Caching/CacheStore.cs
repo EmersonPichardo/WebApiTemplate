@@ -1,5 +1,7 @@
 ﻿using Application._Common.Caching;
+using Application._Common.Settings;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,8 +13,9 @@ internal class CacheStore : ICacheStore
     private readonly IDistributedCache distributedCache;
     private readonly ConcurrentDictionary<string, string> cachedCompoundKeys;
     private readonly JsonSerializerOptions jsonSerializerOptions;
+    private readonly DistributedCacheEntryOptions defaultCacheOptions;
 
-    public CacheStore(IDistributedCache distributedCache)
+    public CacheStore(IDistributedCache distributedCache, IOptions<CacheSettings> cacheSettingsOptions)
     {
         this.distributedCache = distributedCache ?? throw new ArgumentNullException(nameof(distributedCache));
         cachedCompoundKeys = [];
@@ -21,6 +24,13 @@ internal class CacheStore : ICacheStore
         {
             PropertyNameCaseInsensitive = true,
             ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var cacheSettings = cacheSettingsOptions.Value;
+        defaultCacheOptions = new()
+        {
+            AbsoluteExpirationRelativeToNow = cacheSettings.AbsoluteLifetime,
+            SlidingExpiration = cacheSettings.SlidingLifetime
         };
     }
 
@@ -34,6 +44,7 @@ internal class CacheStore : ICacheStore
         await distributedCache.SetStringAsync(
             key,
             serializedValue,
+            defaultCacheOptions,
             cancellationToken
         );
 

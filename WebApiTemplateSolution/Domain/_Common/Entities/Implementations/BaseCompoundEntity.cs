@@ -1,6 +1,4 @@
-﻿using Domain._Common.Entities.Abstractions;
-
-namespace Domain._Common.Entities.Implementations;
+﻿namespace Domain._Common.Entities.Implementations;
 
 public abstract class BaseCompoundEntity
     : BaseEntity, ICompoundEntity

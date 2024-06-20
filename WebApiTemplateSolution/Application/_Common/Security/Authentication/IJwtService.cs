@@ -1,6 +1,4 @@
-﻿using Application._Common.Settings;
-
-namespace Application._Common.Security.Authentication;
+﻿namespace Application._Common.Security.Authentication;
 
 public interface IJwtService
 {

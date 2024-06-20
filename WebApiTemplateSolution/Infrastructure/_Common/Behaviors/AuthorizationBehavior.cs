@@ -1,8 +1,8 @@
 ﻿using Application._Common.Exceptions;
 using Application._Common.Security.Authentication;
 using Application._Common.Security.Authorization;
-using Application._Security.Users.ChangePassword;
-using Domain._Security;
+using Application.Users.ChangePassword;
+using Domain.Security;
 using MediatR;
 using System.Reflection;
 

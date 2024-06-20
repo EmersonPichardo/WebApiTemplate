@@ -17,9 +17,11 @@ internal class EmailSender : IEmailSender
 
         smtpClient = new SmtpClient(smtpSettings.Server, smtpSettings.Port)
         {
-            UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(smtpSettings.FromEmail, smtpSettings.Password),
-            EnableSsl = true
+            UseDefaultCredentials = !smtpSettings.HasCredentials,
+            Credentials = smtpSettings.HasCredentials
+                ? new NetworkCredential(smtpSettings.User, smtpSettings.Password)
+                : null,
+            EnableSsl = smtpSettings.EnableSsl
         };
 
         sender = new MailAddress(smtpSettings.FromEmail, smtpSettings.FromName);
@@ -42,7 +44,8 @@ internal class EmailSender : IEmailSender
         return new MailMessage(sender, receiver)
         {
             Subject = subject,
-            Body = message
+            Body = message,
+            IsBodyHtml = true
         };
     }
 }

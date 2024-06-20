@@ -1,6 +1,6 @@
 ﻿using Application._Common.Security.Authentication;
 using Domain._Common.Modularity;
-using Domain._Security;
+using Domain.Security;
 
 namespace Presentation._Common.Security;
 
