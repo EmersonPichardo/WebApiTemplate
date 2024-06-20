@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Users\ChangePassword\" />
-    <Folder Include="Users\LogIn\" />
     <Folder Include="Users\LogOut\" />
     <Folder Include="Users\ResetPassword\" />
   </ItemGroup>

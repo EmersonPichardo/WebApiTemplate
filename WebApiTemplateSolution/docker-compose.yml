@@ -29,6 +29,7 @@ services:
 
   template.smtp:
     image: mailhog/mailhog
+    container_name: template.smtp
     ports:
       - 8025:8025
       - 1025:1025
