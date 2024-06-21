@@ -29,12 +29,12 @@ internal class PasswordHasher(
         );
     }
 
-    public (string password, string hashedPassword, string salt, string algorithm, short iterations) GenerateNewPassword()
+    public (string newPassword, string hashedPassword, string salt, string algorithm, short iterations) GenerateNewPassword()
     {
-        var password = NewStringPassword();
-        (var hashedPassword, var salt, var algorithm, var iterations) = Generate(password);
+        var newPassword = NewStringPassword();
+        (var hashedPassword, var salt, var algorithm, var iterations) = Generate(newPassword);
 
-        return (password, hashedPassword, salt, algorithm, iterations);
+        return (newPassword, hashedPassword, salt, algorithm, iterations);
     }
 
     public string Hash(string password, string salt, HashingSettings hashingSettings)

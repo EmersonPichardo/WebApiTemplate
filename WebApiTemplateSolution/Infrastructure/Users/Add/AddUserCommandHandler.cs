@@ -15,7 +15,7 @@ internal class AddUserCommandHandler(
 {
     public async Task Handle(AddUserCommand command, CancellationToken cancellationToken)
     {
-        (var password, var hashedPassword, var salt, var algorithm, var iterations)
+        (var newPassword, var hashedPassword, var salt, var algorithm, var iterations)
             = passwordHasher.GenerateNewPassword();
 
         var user = new User()
@@ -42,7 +42,7 @@ internal class AddUserCommandHandler(
                 UserId = user.Id,
                 FullName = user.FullName,
                 Email = user.Email,
-                Password = password
+                NewPassword = newPassword
             }
         );
     }

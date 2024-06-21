@@ -25,6 +25,9 @@ internal static class EntityTypeBuilderExtensions
         where TEntity : class, IAuditableEntity
     {
         builder.Property(entity => entity.IsDeleted).HasDefaultValue(false);
+
+        builder.HasIndex(entity => entity.IsDeleted).HasFilter(UniquenessFilter);
+
         builder.HasQueryFilter(entity => !entity.IsDeleted);
 
         return builder;

@@ -4,8 +4,8 @@ namespace Application.Users;
 
 public record UserDto : IMapFrom<User>
 {
-    public required Guid Id { get; set; }
-    public required string FullName { get; set; }
-    public required string Email { get; set; }
-    public required UserStatus Status { get; set; }
+    public required Guid Id { get; init; }
+    public required string FullName { get; init; }
+    public required string Email { get; init; }
+    public required string Status { get; init; }
 }

@@ -1,24 +1,24 @@
 ﻿using Application._Common.Notifications.Emails;
-using Application.Users.Add;
+using Application.Users.ResetPassword;
 using MediatR;
 
-namespace Infrastructure.Users.Add;
+namespace Infrastructure.Users.ResetPassword;
 
-internal class UserAddedEventSendPasswordHandler(
+internal class UserPasswordResetEventSendPasswordHandler(
     IEmailSender emailSender
 )
-    : INotificationHandler<UserAddedEvent>
+    : INotificationHandler<UserPasswordResetEvent>
 {
-    public async Task Handle(UserAddedEvent @event, CancellationToken cancellationToken)
+    public async Task Handle(UserPasswordResetEvent @event, CancellationToken cancellationToken)
     {
         var message = EmailTemplateCollection
-            .AddUserTemplate
+            .ResetPasswordTemplate
             .Replace("[ReceiverFullName]", @event.FullName)
             .Replace("[NewPassword]", @event.NewPassword);
 
         await emailSender.SendAsync(
             @event.Email,
-            $"¡Bienvenido/a a la aplicación {@event.FullName}!",
+            $"Contraseña restablecida",
             message,
             cancellationToken
         );

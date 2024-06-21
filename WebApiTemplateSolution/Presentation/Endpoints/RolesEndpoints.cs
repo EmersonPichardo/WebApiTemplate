@@ -10,8 +10,7 @@ namespace Presentation.Endpoints;
 
 public class RolesEndpoints : BaseEndpointCollection
 {
-    public RolesEndpoints()
-        : base("roles")
+    public RolesEndpoints() : base("roles")
     {
         //Queries
         DefineGetPaginatedEndpoint<GetRolesPaginatedQuery, GetRolesPaginatedQueryResponse>();

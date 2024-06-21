@@ -14,8 +14,8 @@ internal class GetRolesPaginatedQueryHandler(IApplicationDbContext dbContext, IM
 {
     private static Expression<Func<GetRolesPaginatedQueryResponse, bool>> GetFilterExpression(string? search)
     {
-        return entity
+        return role
             => string.IsNullOrWhiteSpace(search)
-            || entity.Name.ToNormalize().Contains(search);
+            || role.Name.ToNormalize().Contains(search);
     }
 }

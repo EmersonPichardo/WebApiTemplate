@@ -1,4 +1,5 @@
 ﻿using Application._Common.Security.Authentication;
+using Application.Users.ClearSession;
 using Application.Users.Logout;
 using MediatR;
 
@@ -18,7 +19,7 @@ internal class LogoutCurrentUserCommandHandler(
             return;
 
         await mediator.Send(
-            new LogoutUserCommand() { UserId = currentUserId.Value },
+            new ClearUserSessionCommand() { UserId = currentUserId.Value },
             cancellationToken
         );
     }

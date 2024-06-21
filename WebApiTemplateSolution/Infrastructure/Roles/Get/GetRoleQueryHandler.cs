@@ -11,15 +11,13 @@ internal class GetRoleQueryHandler(
 )
     : IGetRoleQueryHandler
 {
-    public async Task<GetRoleQueryResponse> Handle(
-        GetRoleQuery request,
-        CancellationToken cancellationToken)
+    public async Task<GetRoleQueryResponse> Handle(GetRoleQuery request, CancellationToken cancellationToken)
     {
         var foundRole = await dbContext
             .Roles
             .Include(role => role.Permissions)
             .FirstOrDefaultAsync(
-                entity => entity.Id.Equals(request.Id),
+                role => role.Id.Equals(request.Id),
                 cancellationToken
             )
         ?? throw new NotFoundException(nameof(dbContext.Roles), request.Id);

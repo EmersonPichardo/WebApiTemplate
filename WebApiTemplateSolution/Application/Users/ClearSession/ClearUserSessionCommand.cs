@@ -1,9 +1,9 @@
 ﻿using Application._Common.Security.Authorization;
 
-namespace Application.Users.Logout;
+namespace Application.Users.ClearSession;
 
 [AllowAnonymous]
-public record LogoutUserCommand
+public record ClearUserSessionCommand
     : ICommand
 {
     public required Guid UserId { get; init; }

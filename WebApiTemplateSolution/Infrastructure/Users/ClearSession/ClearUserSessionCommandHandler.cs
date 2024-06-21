@@ -1,15 +1,15 @@
 ﻿using Application._Common.Caching;
 using Application._Common.Security.Authentication;
-using Application.Users.Logout;
+using Application.Users.ClearSession;
 
-namespace Infrastructure.Users.Logout;
+namespace Infrastructure.Users.ClearSession;
 
-internal class LogoutUserCommandHandler(
+internal class ClearUserSessionCommandHandler(
     ICacheStore cacheStore
 )
-    : ILogoutUserCommandHandler
+    : IClearUserSessionCommandHandler
 {
-    public async Task Handle(LogoutUserCommand command, CancellationToken cancellationToken)
+    public async Task Handle(ClearUserSessionCommand command, CancellationToken cancellationToken)
     {
         await cacheStore.ClearAsync(
             $"{nameof(ICurrentUserIdentity)}{{{command.UserId}}}",

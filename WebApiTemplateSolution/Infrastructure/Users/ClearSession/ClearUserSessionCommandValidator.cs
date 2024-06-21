@@ -1,13 +1,13 @@
-﻿using Application.Users.Logout;
+﻿using Application.Users.ClearSession;
 using FluentValidation;
 using Infrastructure._Common.Validations.ValidationErrorMessages;
 
-namespace Infrastructure.Users.Logout;
+namespace Infrastructure.Users.ClearSession;
 
-internal class LogoutUserCommandValidator
-    : AbstractValidator<LogoutUserCommand>
+internal class ClearUserSessionCommandValidator
+    : AbstractValidator<ClearUserSessionCommand>
 {
-    public LogoutUserCommandValidator()
+    public ClearUserSessionCommandValidator()
     {
         RuleFor(command => command.UserId)
             .NotEmpty()

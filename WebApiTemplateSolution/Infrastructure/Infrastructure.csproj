@@ -28,9 +28,4 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\ChangePassword\" />
-    <Folder Include="Users\ResetPassword\" />
-  </ItemGroup>
-
 </Project>

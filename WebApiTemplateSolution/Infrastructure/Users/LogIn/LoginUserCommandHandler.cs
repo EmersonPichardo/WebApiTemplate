@@ -2,8 +2,8 @@
 using Application._Common.Persistence.Databases;
 using Application._Common.Security.Authentication;
 using Application._Common.Settings;
+using Application.Users.ClearSession;
 using Application.Users.Login;
-using Application.Users.Logout;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -78,7 +78,7 @@ internal class LoginUserCommandHandler(
         };
 
         await mediator.Send(
-            new LogoutUserCommand() { UserId = foundUser.Id },
+            new ClearUserSessionCommand() { UserId = foundUser.Id },
             cancellationToken
         );
 

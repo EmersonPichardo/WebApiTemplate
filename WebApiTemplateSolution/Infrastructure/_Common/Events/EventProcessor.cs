@@ -31,7 +31,7 @@ internal class EventProcessor(
                     @event => publisher.Publish(@event, stoppingToken)
                 );
 
-            await Task.WhenAll(tasks);
+            Task.WhenAll(tasks);
         }
     }
 }
