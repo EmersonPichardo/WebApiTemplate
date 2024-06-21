@@ -7,5 +7,5 @@ using Infrastructure._Common.GenericHandlers;
 namespace Infrastructure.Users.GetAll;
 
 internal class GetAllUsersQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
-    : GetAllEntitiesQueryHandler<GetUsersQuery, GetUsersQueryResponse, User>(dbContext, mapper)
+    : GetAllEntitiesQueryHandler<GetAllUsersQuery, GetAllUsersQueryResponse, User>(dbContext, mapper)
     , IGetAllUsersQueryHandler;

@@ -5,5 +5,5 @@ using Domain._Common.Modularity;
 namespace Application.Roles.GetAll;
 
 [Authorize(Component.Roles, Permission.Read), Cache(Component.Roles)]
-public record GetRolesQuery
-    : GetAllEntitiesQuery<GetRolesQueryResponse>;
+public record GetAllRolesQuery
+    : GetAllEntitiesQuery<GetAllRolesQueryResponse>;

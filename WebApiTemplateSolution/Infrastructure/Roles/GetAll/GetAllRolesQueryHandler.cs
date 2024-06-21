@@ -7,5 +7,5 @@ using Infrastructure._Common.GenericHandlers;
 namespace Infrastructure.Roles.GetAll;
 
 internal class GetAllRolesQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
-    : GetAllEntitiesQueryHandler<GetRolesQuery, GetRolesQueryResponse, Role>(dbContext, mapper)
+    : GetAllEntitiesQueryHandler<GetAllRolesQuery, GetAllRolesQueryResponse, Role>(dbContext, mapper)
     , IGetAllRolesQueryHandler;

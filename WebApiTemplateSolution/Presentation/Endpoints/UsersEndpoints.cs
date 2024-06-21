@@ -17,7 +17,7 @@ public class UsersEndpoints : BaseEndpointCollection
     {
         //Queries
         DefineGetPaginatedEndpoint<GetUsersPaginatedQuery, GetUsersPaginatedQueryResponse>();
-        DefineGetAllEndpoint<GetUsersQuery, GetUsersQueryResponse>();
+        DefineGetAllEndpoint<GetAllUsersQuery, GetAllUsersQueryResponse>();
         DefineGetEndpoint<GetUserQuery, GetUserQueryResponse>();
 
         //Commands

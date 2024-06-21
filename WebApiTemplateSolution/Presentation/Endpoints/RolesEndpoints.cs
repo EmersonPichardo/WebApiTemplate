@@ -14,7 +14,7 @@ public class RolesEndpoints : BaseEndpointCollection
     {
         //Queries
         DefineGetPaginatedEndpoint<GetRolesPaginatedQuery, GetRolesPaginatedQueryResponse>();
-        DefineGetAllEndpoint<GetRolesQuery, GetRolesQueryResponse>();
+        DefineGetAllEndpoint<GetAllRolesQuery, GetAllRolesQueryResponse>();
         DefineGetEndpoint<GetRoleQuery, GetRoleQueryResponse>();
 
         //Commands

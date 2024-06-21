@@ -3,4 +3,4 @@
 namespace Application.Users.GetAll;
 
 public interface IGetAllUsersQueryHandler
-    : IRequestHandler<GetUsersQuery, IList<GetUsersQueryResponse>>;
+    : IRequestHandler<GetAllUsersQuery, IList<GetAllUsersQueryResponse>>;

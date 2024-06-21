@@ -1,4 +1,4 @@
 ﻿namespace Application.Users.GetAll;
 
-public record GetUsersQueryResponse
+public record GetAllUsersQueryResponse
     : UserDto;

@@ -1,4 +1,4 @@
 ﻿namespace Application.Roles.GetAll;
 
-public record GetRolesQueryResponse
+public record GetAllRolesQueryResponse
     : RoleDto;
